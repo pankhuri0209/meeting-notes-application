@@ -1,0 +1,149 @@
+openapi: 3.1.0
+info:
+  title: The CourseRegistration API
+  summary: The REST service for student registering course.
+  version: "v1.0"
+servers:
+  - url: http://{environment}.localhost:{port}
+    variables:
+      environment:
+        default: dev
+        enum:
+          - dev
+          - staging
+          - prod
+      port:
+        default: "3001"
+        enum:
+          - "3001"
+          - "80"
+paths:
+  /getNotes/{id}:
+    get:
+      operationId: get-notes
+      description: Retrieve the notes
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: The note identifier
+          example: 333
+          schema:
+            type: string
+      responses:
+        200:
+          description: Successfully saved
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/NoteEntity"
+        401:
+          description: Unauthenticated request
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        403:
+          description: Unauthorized request
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /getNotes:
+    get:
+      operationId: search-notes
+      description: Search the notes
+      parameters:
+        - in: query
+          name: noteId
+          required: false
+          description: The note identifier
+          example: 333
+          schema:
+            type: string
+      responses:
+        200:
+          description: Successfully saved
+          content:
+            "application/json":
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/NoteEntity"
+        401:
+          description: Unauthenticated request
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        403:
+          description: Unauthorized request
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      operationId: save-note
+      description: Registers the course offering for the student
+      requestBody:
+        required: true
+        content:
+          "application/json":
+            schema:
+              $ref: "#/components/schemas/Notes"
+      responses:
+        200:
+          description: Successfully saved
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/NotesEntity"
+        401:
+          description: Unauthenticated request
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        403:
+          description: Unauthorized request
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+components:
+  schemas:
+    Notes:
+      type: object
+      properties:
+        noteId:
+          type: integer
+          examples:
+            - 1111
+
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          examples:
+            - Unauthenticated
+        message:
+          type: string
+          examples:
+            - User is unauthenticated.
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          $ref: "#/components/schemas/Error"
+    NotesEntity:
+      allOf:
+        - $ref: "#/components/schemas/Notes"
+      type: object
+      properties:
+        id:
+          type: integer
+          examples:
+            - 3334

@@ -1,0 +1,27 @@
+meta {
+  name: Update Note
+  type: http
+  seq: 4
+}
+
+put {
+  url: http://localhost:3001/notes/660ec10c6660c7144c3708b6
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+      "title": "Updated Title",
+      "content": "Updated Content",
+      "action_items": ["Update action item 1", "Update action item 2"]
+    }
+}
+
+body:text {
+  {
+      "title": "Updated Title",
+      "content": "Updated Content",
+      "action_items": ["Update action item 1", "Update action item 2"]
+    }
+}

@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "Meeting Notes",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

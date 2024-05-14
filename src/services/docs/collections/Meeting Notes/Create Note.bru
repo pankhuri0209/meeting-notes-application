@@ -1,0 +1,24 @@
+meta {
+  name: Create Note
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:3001/notes
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "title":"Meeting 3",
+    "date_created":"03/30/2022",
+    "noteId":"003",
+    "content": "The project status meeting will entail a comprehensive review of the current progress, challenges encountered, and upcoming milestones. Following the discussion, tasks will be allocated to team members based on their expertise and availability to ensure efficient execution and timely completion of project objectives.",
+    "action_items": [
+      "Follow up with client",
+      "Prepare presentation"
+    ]
+  }
+}
